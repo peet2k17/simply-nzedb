@@ -28,6 +28,7 @@ RUN apk add --update \
   vim \
   wget \
   zendframework \
+  gnu-libiconv \
   && \
   rm -rf /var/cache/apk/*
 
@@ -53,7 +54,7 @@ RUN apk add --update \
 #RUN apk add --no-cache --repository https://dl-4.alpinelinux.org/alpine/edge/testing gnu-libiconv
 #ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 
-RUN docker-php-ext-install iconv
+#RUN docker-php-ext-install iconv
 
 # Install composer
 RUN curl https://getcomposer.org/installer | php7 -- --install-dir=/usr/bin --filename=composer
