@@ -28,7 +28,7 @@ RUN apk add --update \
   vim \
   wget \
   zendframework \
-  gnu-libiconv \
+  php7-iconv \
   && \
   rm -rf /var/cache/apk/*
 
