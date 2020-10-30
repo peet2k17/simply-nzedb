@@ -50,8 +50,22 @@ RUN apk add --update \
   make install
 
 # See https://github.com/docker-library/php/issues/240#issuecomment-305038173
-RUN apk add --no-cache --repository https://dl-4.alpinelinux.org/alpine/edge/testing gnu-libiconv
-ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
+#RUN apk add --no-cache --repository https://dl-4.alpinelinux.org/alpine/edge/testing gnu-libiconv
+#ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
+
+RUN rm /usr/bin/iconv \
+  && curl -SL http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.14.tar.gz | tar -xz -C . \
+  && cd libiconv-1.14 \
+  && ./configure --prefix=/usr/local \
+  && curl -SL https://raw.githubusercontent.com/mxe/mxe/7e231efd245996b886b501dad780761205ecf376/src/libiconv-1-fixes.patch \
+  | patch -p1 -u  \
+  && make \
+  && make install \
+  && libtool --finish /usr/local/lib \
+  && cd .. \
+  && rm -rf libiconv-1.14
+
+ENV LD_PRELOAD /usr/local/lib/preloadable_libiconv.so
 
 # Install composer
 RUN curl https://getcomposer.org/installer | php7 -- --install-dir=/usr/bin --filename=composer
