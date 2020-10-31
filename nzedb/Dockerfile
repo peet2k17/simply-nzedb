@@ -97,7 +97,7 @@ RUN mkdir -p /var/log/nginx && \
     touch /var/log/nginx/nginx-error.log
 
 # Clone nZEDb and set directory permissions.  set NZEDB_VERSION to "dev" if you want to clone the dev branch.
-ENV NZEDB_VERSION "v0.8.22.0"
+ENV NZEDB_VERSION "v0.8.21.0"
 RUN mkdir -p /var/www && \
   cd /var/www && \
   git clone https://github.com/nZEDb/nZEDb.git && \
