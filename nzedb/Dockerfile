@@ -57,6 +57,8 @@ RUN apk add --update \
 
 # Install composer
 RUN curl https://getcomposer.org/installer | php7 -- --install-dir=/usr/bin --filename=composer
+# Downgrade composer
+RUN composer self-update --1
 
 # Build and install mediainfo with newest version
 ENV MEDIAINFO_VERSION 18.08
